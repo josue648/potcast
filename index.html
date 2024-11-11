@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast - NFL Sunday Ticket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .social-links {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .social-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h4 {
+            color: #1a1a1a;
+        }
+
+        .interaction-guide {
+            background-color: #f5f9ff;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tip-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-card h4 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+
+        .tip-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .tip-card ul li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .tip-card ul li:before {
+            content: "→";
+            color: #3498db;
+            position: absolute;
+            left: 0;
+        }
+
+        .reminder-box {
+            background-color: #e8f6ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .tips-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .brain-development {
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stage-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stage-card:hover {
+            transform: translateX(10px);
+        }
+
+        .stage-card h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stage-content ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .stage-content ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .stage-content ul li:before {
+            content: "•";
+            color: #3498db;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .brain-facts {
+            background-color: #e8f4f8;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            margin-top: 2rem;
+        }
+
+        .brain-facts ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .brain-facts ul li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .brain-facts ul li:before {
+            content: "→";
+            color: #3498db;
+            position: absolute;
+            left: 0;
+        }
+
+        .brain-nutrition {
+            background-color: #f9f7f5;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .nutrition-intro {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .nutrition-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .food-category {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .food-items {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .food-item {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .food-item h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit {
+            display: block;
+            font-size: 0.9rem;
+            color: #27ae60;
+            margin-top: 0.5rem;
+        }
+
+        .impact-list li {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .recommendations {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .recommendations ul li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .recommendations ul li:before {
+            content: "✓";
+            color: #2ecc71;
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .nutrition-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .impact-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .impact-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .impact-section h3 {
+            color: #1a1a1a;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .impact-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .impact-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .impact-list li:before {
+            content: "→";
+            color: #3498db;
+            position: absolute;
+            left: 0;
+        }
+
+        .recommendations {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .recommendations:hover {
+            transform: translateY(-5px);
+        }
+
+        .recommendations h3 {
+            color: #1a1a1a;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .recommendations ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .recommendations ul li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .recommendations ul li:before {
+            content: "→";
+            color: #3498db;
+            position: absolute;
+            left: 0;
+        }
+
+        .sleep-importance {
+            background-color: #f5f6fa;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .phase-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .phase {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid #4834d4;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .tip {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .tip ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .tip ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tip ul li:before {
+            content: "→";
+            color: #4834d4;
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .phase-cards, .benefits-grid, .tips-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sleep-management {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .importance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .importance-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+
+        .schedule-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .age-group {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hygiene-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .do-section, .dont-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .do-section {
+            border-left: 4px solid #2ecc71;
+        }
+
+        .dont-section {
+            border-left: 4px solid #e74c3c;
+        }
+
+        .sleep-warning {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #ffc107;
+            margin-top: 2rem;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        ul li:before {
+            content: "•";
+            color: #3498db;
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .importance-grid, .hygiene-tips {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .brain-exercises {
+            background-color: #f5f7fa;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .exercise-intro {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .exercise-categories {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .exercise-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .exercise-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .exercise-card h4 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .benefit-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #2ecc71;
+        }
+
+        .tips-list {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tips-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tips-list li:before {
+            content: "✓";
+            color: #2ecc71;
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .exercise-items, .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .social-brain {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .intro-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .benefit-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+
+        .type-grid, .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .type-card, .skill-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .type-card:hover, .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tips {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            list-style-type: none;
+        }
+
+        .tips li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tips li:before {
+            content: "→";
+            color: #3498db;
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .benefit-cards, .type-grid, .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .index-section {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .index-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .index-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .index-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .index-card h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .index-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .index-card ul ul {
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .index-card a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .index-card a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .index-card li {
+            margin-bottom: 0.8rem;
+        }
+
+        .index-card ul ul li {
+            margin-bottom: 0.4rem;
+        }
+
+        @media (max-width: 768px) {
+            .index-container {
+                grid-template-columns: 1fr;
+            }
+
+            .index-card:hover {
+                transform: none;
+            }
+        }
+
+        .main-header {
+            background-color: #2c3e50;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-title h1 {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .main-nav {
+            margin-left: 2rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item a:hover {
+            color: #3498db;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            padding: 0.5rem 0;
+            z-index: 1;
+        }
+
+        .nav-item:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #2c3e50;
+            padding: 0.8rem 1rem;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f9fa;
+            color: #3498db;
+        }
+
+        /* Botón de menú móvil */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-title">
+                <h1>Desarrollo y Salud Cerebral</h1>
+            </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li class="nav-item">
+                        <a href="#autismo">Autismo</a>
+                        <div class="dropdown-content">
+                            <a href="#que-es">¿Qué es?</a>
+                            <a href="#caracteristicas">Características</a>
+                            <a href="#interaccion">Guía de Interacción</a>
+                        </div>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="#sueno">Sueño</a>
+                        <div class="dropdown-content">
+                            <a href="#ciclos">Ciclos del Sueño</a>
+                            <a href="#higiene">Higiene del Sueño</a>
+                            <a href="#recomendaciones-sueno">Recomendaciones</a>
+                        </div>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="#ejercicio">Ejercicio</a>
+                        <div class="dropdown-content">
+                            <a href="#tipos">Tipos de Ejercicio</a>
+                            <a href="#beneficios">Beneficios</a>
+                            <a href="#rutinas">Rutinas Recomendadas</a>
+                        </div>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="#relaciones">Relaciones</a>
+                        <div class="dropdown-content">
+                            <a href="#beneficios-sociales">Beneficios</a>
+                            <a href="#tipos-relaciones">Tipos</a>
+                            <a href="#habilidades">Habilidades Sociales</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/cgB-vM2xRMU" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <h1>como funciona el cerebro</h1>
+        <div class="content">
+            <h2>Sobre el Podcast</h2>
+            <p>Bienvenidos a nuestro podcast dedicado al NFL Sunday Ticket, donde analizamos el impacto del nuevo acuerdo entre la NFL y YouTube TV para la transmisión del NFL Sunday Ticket a partir de la temporada 2023.</p>
+            
+            <h3>Puntos Destacados del Episodio:</h3>
+            <ul>
+                <li>El histórico acuerdo de $2 mil millones por año entre la NFL y YouTube TV</li>
+                <li>Cómo este cambio afecta a los aficionados que quieren ver partidos fuera de su mercado local</li>
+                <li>Las ventajas de la nueva plataforma de streaming comparada con el servicio anterior de DirecTV</li>
+                <li>Opciones de suscripción y precios para los usuarios de YouTube TV y YouTube Primetime Channels</li>
+                <li>El futuro del consumo de contenido deportivo en plataformas digitales</li>
+            </ul>
+
+            <h3>¿Por qué es importante?</h3>
+            <p>Este cambio representa una transformación significativa en la forma en que los aficionados pueden acceder a los juegos de la NFL, marcando el fin de una era de 29 años con DirecTV y el comienzo de una nueva era digital con YouTube TV.</p>
+
+            <h3>Funciones Principales de NFL Sunday Ticket en YouTube TV</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>Multiview</h4>
+                    <p>Ve hasta 4 juegos simultáneamente en una sola pantalla, permitiéndote seguir toda la acción del domingo.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>Key Plays</h4>
+                    <p>Accede instantáneamente a las jugadas más importantes de cada partido sin necesidad de ver el juego completo.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Estadísticas en Tiempo Real</h4>
+                    <p>Consulta estadísticas detalladas y actualizadas de jugadores y equipos mientras ves los partidos.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Highlights</h4>
+                    <p>Resúmenes y momentos destacados disponibles durante el juego para no perderte ninguna acción importante.</p>
+                </div>
+            </div>
+
+            <section class="autism-info">
+                <h2>Entendiendo el Autismo</h2>
+                
+                <div class="info-card">
+                    <h3>¿Qué es el Autismo?</h3>
+                    <p>El Trastorno del Espectro Autista (TEA) es una condición del neurodesarrollo que afecta la manera en que una persona percibe y socializa con otros, causando problemas en la interacción social y la comunicación.</p>
+                </div>
+
+                <div class="characteristics-grid">
+                    <div class="characteristic">
+                        <h4>Características Comunes</h4>
+                        <ul>
+                            <li>Dificultad en la comunicación social</li>
+                            <li>Patrones de comportamiento repetitivos</li>
+                            <li>Intereses restringidos</li>
+                            <li>Diferencias en el procesamiento sensorial</li>
+                        </ul>
+                    </div>
+
+                    <div class="characteristic">
+                        <h4>Señales Tempranas</h4>
+                        <ul>
+                            <li>Poco contacto social</li>
+                            <li>Retraso en el desarrollo del lenguaje</li>
+                            <li>Dificultad para entender emociones</li>
+                            <li>Preferencia por jugar solo</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="interaction-guide">
+                <h2>Guía para Interactuar con Personas Autistas</h2>
+                
+                <div class="tips-container">
+                    <div class="tip-card">
+                        <h4>Comunicación</h4>
+                        <ul>
+                            <li>Usa lenguaje claro y directo</li>
+                            <li>Evita sarcasmo o frases con doble sentido</li>
+                            <li>Da tiempo para procesar la información</li>
+                            <li>Respeta los silencios</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4>Ambiente</h4>
+                        <ul>
+                            <li>Reduce estímulos sensoriales fuertes (ruidos, luces intensas)</li>
+                            <li>Mantén un entorno predecible</li>
+                            <li>Respeta su espacio personal</li>
+                            <li>Ofrece un lugar tranquilo si lo necesitan</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4>Rutinas y Cambios</h4>
+                        <ul>
+                            <li>Anticipa los cambios con tiempo</li>
+                            <li>Respeta sus rutinas</li>
+                            <li>Usa apoyos visuales si es necesario</li>
+                            <li>Mantén horarios consistentes</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4>Qué Evitar</h4>
+                        <ul>
+                            <li>No fuerces el contacto visual</li>
+                            <li>No presiones en situaciones sociales</li>
+                            <li>No critiques sus intereses especiales</li>
+                            <li>No interpretes la falta de expresión como desinterés</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="reminder-box">
+                    <h4>Recordatorio Importante</h4>
+                    <p>Cada persona con autismo es única. Lo que funciona para una persona puede no funcionar para otra. La clave es ser paciente, respetuoso y estar dispuesto a aprender de cada individuo.</p>
+                </div>
+            </section>
+
+            <section class="brain-development">
+                <h2>Desarrollo del Cerebro por Etapas</h2>
+
+                <div class="timeline">
+                    <div class="stage-card">
+                        <h3>0-3 Años: Primera Infancia</h3>
+                        <div class="stage-content">
+                            <ul>
+                                <li>Desarrollo rápido de conexiones neuronales</li>
+                                <li>Formación de vínculos emocionales</li>
+                                <li>Desarrollo del lenguaje básico</li>
+                                <li>Aprendizaje sensorial y motor</li>
+                                <li>90% del desarrollo cerebral ocurre en este período</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="stage-card">
+                        <h3>3-6 Años: Edad Preescolar</h3>
+                        <div class="stage-content">
+                            <ul>
+                                <li>Desarrollo del pensamiento simblico</li>
+                                <li>Mejora de habilidades lingüísticas</li>
+                                <li>Inicio del autocontrol emocional</li>
+                                <li>Desarrollo de la memoria</li>
+                                <li>Inicio de habilidades sociales complejas</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="stage-card">
+                        <h3>6-12 Años: Edad Escolar</h3>
+                        <div class="stage-content">
+                            <ul>
+                                <li>Refinamiento de habilidades motoras</li>
+                                <li>Desarrollo del pensamiento lógico</li>
+                                <li>Mejora en la capacidad de atención</li>
+                                <li>Desarrollo de la empatía</li>
+                                <li>Consolidación de la memoria a largo plazo</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="stage-card">
+                        <h3>12-20 Años: Adolescencia</h3>
+                        <div class="stage-content">
+                            <ul>
+                                <li>Reorganización de conexiones cerebrales</li>
+                                <li>Desarrollo del pensamiento abstracto</li>
+                                <li>Maduración del control de impulsos</li>
+                                <li>Desarrollo de la identidad</li>
+                                <li>Refinamiento de funciones ejecutivas</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="stage-card">
+                        <h3>20+ Años: Edad Adulta</h3>
+                        <div class="stage-content">
+                            <ul>
+                                <li>Maduración completa del lóbulo frontal</li>
+                                <li>Optimización de la toma de decisiones</li>
+                                <li>Mayor control emocional</li>
+                                <li>Consolidación de la personalidad</li>
+                                <li>Plasticidad cerebral continua</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="brain-facts">
+                    <h3>Datos Importantes</h3>
+                    <ul>
+                        <li>El cerebro continúa desarrollándose hasta los 25 años aproximadamente</li>
+                        <li>La plasticidad cerebral permite el aprendizaje durante toda la vida</li>
+                        <li>El ambiente y las experiencias influyen significativamente en el desarrollo</li>
+                        <li>La nutrición y el sueño son cruciales en todas las etapas</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="brain-nutrition">
+                <h2>Alimentación y Salud Cerebral</h2>
+
+                <div class="nutrition-intro">
+                    <p>El cerebro consume aproximadamente el 20% de la energía total del cuerpo. Una alimentación adecuada es fundamental para su correcto funcionamiento y desarrollo.</p>
+                </div>
+
+                <div class="nutrition-grid">
+                    <div class="food-category">
+                        <h3>Alimentos Beneficiosos</h3>
+                        <div class="food-items">
+                            <div class="food-item">
+                                <h4>Ácidos Grasos Omega-3</h4>
+                                <p>Pescados azules, nueces, semillas de chía</p>
+                                <span class="benefit">Beneficio: Mejora la memoria y función cognitiva</span>
+                            </div>
+
+                            <div class="food-item">
+                                <h4>Antioxidantes</h4>
+                                <p>Arándanos, espinacas, frutos rojos</p>
+                                <span class="benefit">Beneficio: Protección neuronal</span>
+                            </div>
+
+                            <div class="food-item">
+                                <h4>Proteínas de Calidad</h4>
+                                <p>Huevos, pescado, legumbres</p>
+                                <span class="benefit">Beneficio: Producción de neurotransmisores</span>
+                            </div>
+
+                            <div class="food-item">
+                                <h4>Vitaminas del Grupo B</h4>
+                                <p>Cereales integrales, lácteos, carnes magras</p>
+                                <span class="benefit">Beneficio: Energía cerebral y función cognitiva</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="impact-section">
+                        <h3>Impacto en el Cerebro</h3>
+                        <ul class="impact-list">
+                            <li>
+                                <strong>Memoria y Aprendizaje:</strong>
+                                <p>Los nutrientes adecuados mejoran la capacidad de retención y aprendizaje</p>
+                            </li>
+                            <li>
+                                <strong>Estado de Ánimo:</strong>
+                                <p>La alimentación influye en la producción de serotonina y dopamina</p>
+                            </li>
+                            <li>
+                                <strong>Concentración:</strong>
+                                <p>Los niveles de glucosa estables mantienen el foco mental</p>
+                            </li>
+                            <li>
+                                <strong>Protección Neuronal:</strong>
+                                <p>Los antioxidantes previenen el deterioro cognitivo</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="recommendations">
+                        <h3>Recomendaciones Diarias</h3>
+                        <ul>
+                            <li>Mantener una hidratación adecuada (8 vasos de agua)</li>
+                            <li>Consumir proteínas en cada comida principal</li>
+                            <li>Incluir grasas saludables diariamente</li>
+                            <li>Evitar azúcares refinados y grasas trans</li>
+                            <li>Mantener horarios regulares de comida</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="sleep-importance">
+                <h2>El Sueño y su Impacto en el Cerebro</h2>
+
+                <div class="sleep-phases">
+                    <h3>Ciclos del Sueño</h3>
+                    <div class="phase-cards">
+                        <div class="phase">
+                            <h4>Fase 1: Sueño Ligero</h4>
+                            <p>Duración: 5-10 minutos</p>
+                            <ul>
+                                <li>Respiración se ralentiza</li>
+                                <li>Actividad muscular disminuye</li>
+                                <li>Fácil de despertar</li>
+                            </ul>
+                        </div>
+
+                        <div class="phase">
+                            <h4>Fase 2: Sueño Moderado</h4>
+                            <p>Duración: 20 minutos</p>
+                            <ul>
+                                <li>Temperatura corporal baja</li>
+                                <li>Ritmo cardíaco disminuye</li>
+                                <li>Preparación para sueño profundo</li>
+                            </ul>
+                        </div>
+
+                        <div class="phase">
+                            <h4>Fase 3-4: Sueño Profundo</h4>
+                            <p>Duración: 30-40 minutos</p>
+                            <ul>
+                                <li>Regeneración corporal</li>
+                                <li>Fortalecimiento del sistema inmune</li>
+                                <li>Reparación tisular</li>
+                            </ul>
+                        </div>
+
+                        <div class="phase">
+                            <h4>Fase REM</h4>
+                            <p>Duración: 10-60 minutos</p>
+                            <ul>
+                                <li>Consolidación de memoria</li>
+                                <li>Procesamiento emocional</li>
+                                <li>Sueños vívidos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sleep-benefits">
+                    <h3>Beneficios del Buen Dormir</h3>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <h4>Memoria</h4>
+                            <p>Consolida el aprendizaje y mejora la retención de información</p>
+                        </div>
+                        <div class="benefit-card">
+                            <h4>Estado de Ánimo</h4>
+                            <p>Regula emociones y reduce el estrés</p>
+                        </div>
+                        <div class="benefit-card">
+                            <h4>Función Cognitiva</h4>
+                            <p>Mejora concentración y toma de decisiones</p>
+                        </div>
+                        <div class="benefit-card">
+                            <h4>Salud Física</h4>
+                            <p>Fortalece el sistema inmune y repara tejidos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sleep-tips">
+                    <h3>Consejos para un Buen Dormir</h3>
+                    <div class="tips-container">
+                        <div class="tip">
+                            <h4>Horarios Regulares</h4>
+                            <ul>
+                                <li>Acostarse y levantarse a la misma hora</li>
+                                <li>Mantener rutina los fines de semana</li>
+                                <li>Evitar siestas largas</li>
+                            </ul>
+                        </div>
+
+                        <div class="tip">
+                            <h4>Ambiente Adecuado</h4>
+                            <ul>
+                                <li>Temperatura entre 18-21°C</li>
+                                <li>Oscuridad total</li>
+                                <li>Silencio o ruido blanco</li>
+                            </ul>
+                        </div>
+
+                        <div class="tip">
+                            <h4>Hábitos Pre-sueño</h4>
+                            <ul>
+                                <li>Evitar pantallas 1 hora antes</li>
+                                <li>Realizar actividades relajantes</li>
+                                <li>No comer abundante</li>
+                            </ul>
+                        </div>
+
+                        <div class="tip">
+                            <h4>Qué Evitar</h4>
+                            <ul>
+                                <li>Cafeína después de las 14:00</li>
+                                <li>Ejercicio intenso antes de dormir</li>
+                                <li>Luz azul de dispositivos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="sleep-management">
+                <h2>Gestión del Sueño y su Importancia</h2>
+
+                <div class="importance-box">
+                    <h3>¿Por qué es tan importante dormir bien?</h3>
+                    <div class="importance-grid">
+                        <div class="importance-card">
+                            <h4>Salud Mental</h4>
+                            <ul>
+                                <li>Reduce el riesgo de depresión y ansiedad</li>
+                                <li>Mejora el estado de ánimo</li>
+                                <li>Aumenta la resistencia al estrés</li>
+                                <li>Estabiliza las emociones</li>
+                            </ul>
+                        </div>
+
+                        <div class="importance-card">
+                            <h4>Salud Física</h4>
+                            <ul>
+                                <li>Fortalece el sistema inmunológico</li>
+                                <li>Regula el peso corporal</li>
+                                <li>Mejora la recuperación muscular</li>
+                                <li>Reduce el riesgo de enfermedades crónicas</li>
+                            </ul>
+                        </div>
+
+                        <div class="importance-card">
+                            <h4>Rendimiento Cognitivo</h4>
+                            <ul>
+                                <li>Mejora la memoria y el aprendizaje</li>
+                                <li>Aumenta la concentración</li>
+                                <li>Optimiza la toma de decisiones</li>
+                                <li>Incrementa la creatividad</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sleep-schedule">
+                    <h3>Horarios Recomendados por Edad</h3>
+                    <div class="schedule-table">
+                        <div class="age-group">
+                            <h4>Recién Nacidos (0-3 meses)</h4>
+                            <p>14-17 horas diarias</p>
+                        </div>
+                        <div class="age-group">
+                            <h4>Bebés (4-11 meses)</h4>
+                            <p>12-15 horas diarias</p>
+                        </div>
+                        <div class="age-group">
+                            <h4>Niños (1-5 años)</h4>
+                            <p>11-14 horas diarias</p>
+                        </div>
+                        <div class="age-group">
+                            <h4>Niños (6-13 años)</h4>
+                            <p>9-11 horas diarias</p>
+                        </div>
+                        <div class="age-group">
+                            <h4>Adolescentes (14-17)</h4>
+                            <p>8-10 horas diarias</p>
+                        </div>
+                        <div class="age-group">
+                            <h4>Adultos (18-64)</h4>
+                            <p>7-9 horas diarias</p>
+                        </div>
+                        <div class="age-group">
+                            <h4>Adultos Mayores (65+)</h4>
+                            <p>7-8 horas diarias</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sleep-hygiene">
+                    <h3>Higiene del Sueño</h3>
+                    <div class="hygiene-tips">
+                        <div class="do-section">
+                            <h4>Qué Hacer</h4>
+                            <ul>
+                                <li>Mantener un horario constante</li>
+                                <li>Ejercicio regular (no antes de dormir)</li>
+                                <li>Exposición a luz natural durante el día</li>
+                                <li>Cena ligera 2-3 horas antes de dormir</li>
+                                <li>Ritual relajante antes de dormir</li>
+                                <li>Ambiente fresco y oscuro</li>
+                            </ul>
+                        </div>
+                        <div class="dont-section">
+                            <h4>Qué Evitar</h4>
+                            <ul>
+                                <li>Pantallas antes de dormir</li>
+                                <li>Cafeína después del mediodía</li>
+                                <li>Alcohol antes de dormir</li>
+                                <li>Comidas pesadas nocturnas</li>
+                                <li>Ejercicio intenso nocturno</li>
+                                <li>Siestas largas después de las 15:00</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sleep-warning">
+                    <h3>Señales de Alerta</h3>
+                    <ul>
+                        <li>Dificultad para conciliar el sueño (+30 minutos)</li>
+                        <li>Despertares frecuentes durante la noche</li>
+                        <li>Somnolencia excesiva durante el día</li>
+                        <li>Ronquidos fuertes o pausas en la respiración</li>
+                        <li>Cambios en los patrones de sueño</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="brain-exercises">
+                <h2>Ejercicios Físicos que Benefician al Cerebro</h2>
+
+                <div class="exercise-intro">
+                    <p>El ejercicio físico regular aumenta el flujo sanguíneo al cerebro, estimula la producción de neurotransmisores y promueve la neuroplasticidad.</p>
+                </div>
+
+                <div class="exercise-categories">
+                    <div class="category aerobic">
+                        <h3>Ejercicios Aeróbicos</h3>
+                        <div class="exercise-items">
+                            <div class="exercise-card">
+                                <h4>Caminata Rápida</h4>
+                                <ul>
+                                    <li>30-45 minutos diarios</li>
+                                    <li>Mejora la memoria a largo plazo</li>
+                                    <li>Reduce el riesgo de demencia</li>
+                                    <li>Aumenta la producción de BDNF</li>
+                                </ul>
+                            </div>
+
+                            <div class="exercise-card">
+                                <h4>Natación</h4>
+                                <ul>
+                                    <li>Estimula ambos hemisferios cerebrales</li>
+                                    <li>Mejora la coordinación</li>
+                                    <li>Reduce el estrés</li>
+                                    <li>Aumenta la oxigenación cerebral</li>
+                                </ul>
+                            </div>
+
+                            <div class="exercise-card">
+                                <h4>Baile</h4>
+                                <ul>
+                                    <li>Mejora la memoria espacial</li>
+                                    <li>Aumenta la plasticidad cerebral</li>
+                                    <li>Desarrolla nuevas conexiones neuronales</li>
+                                    <li>Estimula la coordinación</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="category coordination">
+                        <h3>Ejercicios de Coordinación</h3>
+                        <div class="exercise-items">
+                            <div class="exercise-card">
+                                <h4>Yoga</h4>
+                                <ul>
+                                    <li>Reduce el estrés crónico</li>
+                                    <li>Mejora la concentración</li>
+                                    <li>Aumenta el control mental</li>
+                                    <li>Equilibra neurotransmisores</li>
+                                </ul>
+                            </div>
+
+                            <div class="exercise-card">
+                                <h4>Tai Chi</h4>
+                                <ul>
+                                    <li>Mejora el equilibrio</li>
+                                    <li>Aumenta la atención plena</li>
+                                    <li>Reduce la ansiedad</li>
+                                    <li>Fortalece la memoria</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="benefits-section">
+                        <h3>Beneficios Cerebrales del Ejercicio</h3>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <h4>Memoria</h4>
+                                <p>Aumenta el volumen del hipocampo, mejorando la memoria y el aprendizaje</p>
+                            </div>
+                            <div class="benefit-item">
+                                <h4>Estado de Ánimo</h4>
+                                <p>Libera endorfinas y serotonina, mejorando el humor y reduciendo la depresión</p>
+                            </div>
+                            <div class="benefit-item">
+                                <h4>Cognición</h4>
+                                <p>Mejora la función ejecutiva y la velocidad de procesamiento mental</p>
+                            </div>
+                            <div class="benefit-item">
+                                <h4>Neuroprotección</h4>
+                                <p>Reduce el riesgo de enfermedades neurodegenerativas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recommendations">
+                        <h3>Recomendaciones Prácticas</h3>
+                        <ul class="tips-list">
+                            <li>Comenzar con 15-30 minutos diarios</li>
+                            <li>Aumentar gradualmente la intensidad</li>
+                            <li>Combinar diferentes tipos de ejercicio</li>
+                            <li>Mantener consistencia en la rutina</li>
+                            <li>Ejercitarse preferentemente por la mañana</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="social-brain">
+                <h2>El Impacto de las Relaciones Sociales en el Cerebro</h2>
+
+                <div class="intro-box">
+                    <p>Las relaciones sociales son fundamentales para la salud cerebral. El cerebro humano está diseñado para la interacción social, y estas conexiones influyen directamente en nuestro bienestar mental y físico.</p>
+                </div>
+
+                <div class="benefit-cards">
+                    <div class="benefit-card">
+                        <h4>Estimulación Cognitiva</h4>
+                        <ul>
+                            <li>Mejora la memoria de trabajo</li>
+                            <li>Aumenta la capacidad de resolución de problemas</li>
+                            <li>Estimula el pensamiento creativo</li>
+                            <li>Mantiene el cerebro activo y ágil</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-card">
+                        <h4>Regulación Emocional</h4>
+                        <ul>
+                            <li>Reduce niveles de cortisol (hormona del estrés)</li>
+                            <li>Aumenta la producción de oxitocina</li>
+                            <li>Mejora la gestión de emociones</li>
+                            <li>Fortalece la resiliencia emocional</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-card">
+                        <h4>Salud Mental</h4>
+                        <ul>
+                            <li>Previene la depresión</li>
+                            <li>Reduce la ansiedad social</li>
+                            <li>Aumenta la autoestima</li>
+                            <li>Mejora el sentido de pertenencia</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="relationship-types">
+                    <h3>Tipos de Relaciones y sus Beneficios</h3>
+                    
+                    <div class="type-grid">
+                        <div class="type-card">
+                            <h4>Familia</h4>
+                            <p>Base fundamental para el desarrollo emocional y la seguridad afectiva</p>
+                            <ul>
+                                <li>Desarrollo de apego seguro</li>
+                                <li>Formación de identidad</li>
+                                <li>Apoyo emocional constante</li>
+                            </ul>
+                        </div>
+
+                        <div class="type-card">
+                            <h4>Amistades</h4>
+                            <p>Fundamentales para el desarrollo social y emocional</p>
+                            <ul>
+                                <li>Desarrollo de habilidades sociales</li>
+                                <li>Compartir experiencias</li>
+                                <li>Apoyo mutuo en desafíos</li>
+                            </ul>
+                        </div>
+
+                        <div class="type-card">
+                            <h4>Relaciones Románticas</h4>
+                            <p>Estimulan circuitos cerebrales específicos</p>
+                            <ul>
+                                <li>Liberación de dopamina y serotonina</li>
+                                <li>Desarrollo de intimidad emocional</li>
+                                <li>Fortalecimiento de vínculos afectivos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-skills">
+                    <h3>Habilidades Sociales Clave</h3>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <h4>Empatía</h4>
+                            <ul>
+                                <li>Reconocimiento de emociones ajenas</li>
+                                <li>Comprensión de perspectivas diferentes</li>
+                                <li>Conexión emocional profunda</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <h4>Comunicación</h4>
+                            <ul>
+                                <li>Escucha activa</li>
+                                <li>Expresión clara de ideas</li>
+                                <li>Lenguaje corporal adecuado</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <h4>Resolución de Conflictos</h4>
+                            <ul>
+                                <li>Negociación efectiva</li>
+                                <li>Manejo de desacuerdos</li>
+                                <li>Búsqueda de soluciones</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <h3>Recomendaciones para Mantener Relaciones Saludables</h3>
+                    <ul class="tips">
+                        <li>Dedicar tiempo de calidad a las relaciones importantes</li>
+                        <li>Practicar la comunicación abierta y honesta</li>
+                        <li>Mostrar gratitud y aprecio regularmente</li>
+                        <li>Establecer límites saludables</li>
+                        <li>Participar en actividades compartidas</li>
+                        <li>Mantener el contacto regular con seres queridos</li>
+                    </ul>
+                </div>
+            </section>
+
+
+                    <div class="index-card">
+
+
+        <div class="social-links">
+            <h3>Síguenos en:</h3>
+            <a href="#">YouTube</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+        </div>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2024 NFL Sunday Ticket Podcast. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html> 
